@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/stephenc/github/busyboxssh/Dockerfile'
+let g:netrw_dirhist_2='/Users/stephenc/src/operations-center/dev-run-server/work'
+let g:netrw_dirhist_3='/Users/stephenc/src/operations-center/dev-run-server/work/plugins'
+let g:netrw_dirhist_4='/Users/stephenc/src/plugins/oss/async-http-client-plugin'
+let g:netrw_dirhist_5='/Users/stephenc/src/operations-center/dev-run-server'
+let g:netrw_dirhist_6='/Users/stephenc/tickets/26018/jenkins/plugins'
+let g:netrw_dirhist_7='/Users/stephenc/tmp/probe/conf'
+let g:netrw_dirhist_8='/usr/local/Cellar/elasticsearch/1.7.1/config'
+let g:netrw_dirhist_9='/Users/stephenc/src/oc-1.7/operations-center-agent/src/main/java'
