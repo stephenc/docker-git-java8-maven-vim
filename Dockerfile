@@ -4,29 +4,40 @@
 # https://github.com/jamesdbloom/docker_java8_maven
 #
 
+ARG MAVEN_VERSION=3.6.1-jdk-8
+
 # pull base image.
-FROM java:8
+FROM maven:3.6.1-jdk-8
+
+ARG USER_UID=1000
+ARG USER_GID=1000
+ARG USER_NAME=user
 
 # maintainer details
-MAINTAINER Stephen Connolly "stephen.ala.connolly@gmail.com"
+MAINTAINER Stephen Connolly "stephen.alan.connolly@gmail.com"
 
 # update packages and install maven
-RUN  \
-  export DEBIAN_FRONTEND=noninteractive && \
-    sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
-      apt-get update && \
-        apt-get -y upgrade && \
-          apt-get install -y vim wget curl git maven
+RUN  set -eux; \
+  export DEBIAN_FRONTEND=noninteractive; \
+  sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list ;\
+  apt-get update ;\
+  apt-get -y upgrade ;\
+  apt-get install -y vim wget curl git ;\
+  rm -rf /var/lib/apt/lists/*
 
-# attach volumes
-VOLUME /volume/git
+RUN set -eux; \
+  groupadd -g ${USER_GID} ${USER_NAME}; \
+  useradd -u ${USER_UID} -d /home/${USER_NAME} -g ${USER_NAME} ${USER_NAME}; \
+  mkdir -p /home/${USER_NAME}; \
+  chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}
 
 COPY vimrc /root/.vimrc
 COPY vim /root/.vim
 
-# create working directory
-RUN mkdir -p /local/git
-WORKDIR /local/git
+RUN set -eux; \
+  cp -R /root/.vim* /home/${USER_NAME}; \
+  chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.vim*
 
-# run terminal
-CMD ["/bin/bash"]
+USER ${USER_NAME}
+WORKDIR /home/${USER_NAME}
+ENV MAVEN_CONFIG "/home/${USER_NAME}/.m2"
