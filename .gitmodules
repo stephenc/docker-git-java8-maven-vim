@@ -1,0 +1,19 @@
+[submodule "ctrlp"]
+    path = vim/bundle/ctrlp.vim
+    url = https://github.com/kien/ctrlp.vim.git 
+
+[submodule "delimitMate"]
+    path = vim/bundle/delimitMate
+    url = https://github.com/Raimondi/delimitMate.git
+
+[submodule "indentLine"]
+    path = vim/bundle/indentLine
+    url = https://github.com/Yggdroot/indentLine.git
+
+[submodule "nerdtree"]
+    path = vim/bundle/nerdtree
+    url = https://github.com/scrooloose/nerdtree.git
+
+[submodule "vim-sensible"]
+    path = vim/bundle/vim-sensible
+    url = https://github.com/tpope/vim-sensible.git
