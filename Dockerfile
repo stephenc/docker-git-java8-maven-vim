@@ -45,7 +45,7 @@ ENV MAVEN_CONFIG "/home/${USER_NAME}/.m2"
 COPY pom.xml "/home/${USER_NAME}"
 RUN set -eux; \
   mkdir -p "/home/${USER_NAME}/.ssh"; \
-  chmod -R 600 "/home/${USER_NAME}/.ssh"; \
-  ssh-keyscan github.com >> ~/.known_hosts; \
+  chmod -R 700 "/home/${USER_NAME}/.ssh"; \
+  ssh-keyscan github.com >> ~/.ssh/.known_hosts; \
   mvn deploy site release:clean clean; \
   rm -rvf pom.xml "/home/${USER_NAME}/.m2/repository/localdomain"
