@@ -39,8 +39,8 @@ RUN set -eux; \
   chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.vim*
 COPY known_hosts "/home/${USER_NAME}/.ssh/known_hosts"
 RUN set -eux; \
-  chmod 600 "/home/${USER_NAME}/.ssh/"; \
-  chown "${USER_NAME}" "/home/${USER_NAME}/.ssh/known_hosts"
+  chmod -R 600 "/home/${USER_NAME}/.ssh"; \
+  chown -R "${USER_NAME}" "/home/${USER_NAME}/.ssh"
 
 USER ${USER_NAME}
 WORKDIR /home/${USER_NAME}
