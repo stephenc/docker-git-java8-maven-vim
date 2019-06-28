@@ -37,10 +37,6 @@ COPY vim /root/.vim
 RUN set -eux; \
   cp -R /root/.vim* /home/${USER_NAME}; \
   chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.vim*
-COPY known_hosts "/home/${USER_NAME}/.ssh/known_hosts"
-RUN set -eux; \
-  chmod -R 600 "/home/${USER_NAME}/.ssh"; \
-  chown -R "${USER_NAME}" "/home/${USER_NAME}/.ssh"
 
 USER ${USER_NAME}
 WORKDIR /home/${USER_NAME}
@@ -48,5 +44,8 @@ ENV MAVEN_CONFIG "/home/${USER_NAME}/.m2"
 
 COPY pom.xml "/home/${USER_NAME}"
 RUN set -eux; \
+  mkdir -p "/home/${USER_NAME}/.ssh"; \
+  chmod -R 600 "/home/${USER_NAME}/.ssh"; \
+  ssh-keyscan github.com >> ~/.known_hosts; \
   mvn deploy site release:clean clean; \
   rm -rvf pom.xml "/home/${USER_NAME}/.m2/repository/localdomain"
