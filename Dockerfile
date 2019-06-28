@@ -37,15 +37,14 @@ COPY vim /root/.vim
 RUN set -eux; \
   cp -R /root/.vim* /home/${USER_NAME}; \
   chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.vim*
+COPY known_hosts "/home/${USER_NAME}/.ssh/known_hosts"
+RUN set -eux; \
+  chmod 600 "/home/${USER_NAME}/.ssh/"; \
+  chown "${USER_NAME}" "/home/${USER_NAME}/.ssh/known_hosts"
 
 USER ${USER_NAME}
 WORKDIR /home/${USER_NAME}
 ENV MAVEN_CONFIG "/home/${USER_NAME}/.m2"
-
-COPY known_hosts "/home/${USER_NAME}/.ssh/known_hosts"
-RUN set -eux; \
-  chown "${USER_NAME}" "/home/${USER_NAME}/.ssh/known_hosts"; \
-  sudo -u "${USER_NAME}" chmod 600 "/home/${USER_NAME}/.ssh/*"
 
 COPY pom.xml "/home/${USER_NAME}"
 RUN set -eux; \
