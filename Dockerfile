@@ -42,7 +42,12 @@ USER ${USER_NAME}
 WORKDIR /home/${USER_NAME}
 ENV MAVEN_CONFIG "/home/${USER_NAME}/.m2"
 
-COPY pom.xml /home/${USER_NAME}
+COPY known_hosts "/home/${USER_NAME}/.ssh/known_hosts"
+RUN set -eux; \
+  chown "${USER_NAME}" "/home/${USER_NAME}/.ssh/known_hosts"; \
+  sudo -u "${USER_NAME}" chmod 600 "/home/${USER_NAME}/.ssh/*"
+
+COPY pom.xml "/home/${USER_NAME}"
 RUN set -eux; \
   mvn deploy site release:clean clean; \
   rm -rvf pom.xml "/home/${USER_NAME}/.m2/repository/localdomain"
