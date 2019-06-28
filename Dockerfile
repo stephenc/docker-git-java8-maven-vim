@@ -48,4 +48,5 @@ RUN set -eux; \
   chmod -R 700 "/home/${USER_NAME}/.ssh"; \
   ssh-keyscan github.com >> ~/.ssh/known_hosts; \
   mvn deploy site release:clean clean; \
-  rm -rvf pom.xml "/home/${USER_NAME}/.m2/repository/localdomain"
+  rm -rvf pom.xml "/home/${USER_NAME}/.m2/repository/localdomain"; \
+  find "/home/${USER_NAME}/.m2/repository/" -name _remote.repositories -exec rm -vf {} \;
