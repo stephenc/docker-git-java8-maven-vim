@@ -7,7 +7,7 @@
 ARG MAVEN_VERSION=3.6.1-jdk-8
 
 # pull base image.
-FROM maven:3.6.1-jdk-8
+FROM maven:${MAVEN_VERSION}
 
 ARG USER_UID=1000
 ARG USER_GID=1000

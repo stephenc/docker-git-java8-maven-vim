@@ -37,7 +37,7 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-rest-client</artifactId>
+      <artifactId>quarkus-rest-client</artifactId>
       <version>${quarkus.version}</version>
     </dependency>
     <dependency>
