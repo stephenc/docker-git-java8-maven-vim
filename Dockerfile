@@ -4,7 +4,7 @@
 # https://github.com/jamesdbloom/docker_java8_maven
 #
 
-ARG MAVEN_VERSION=3.6.1-jdk-8
+ARG MAVEN_VERSION=3.6.3-jdk-8
 
 # pull base image.
 FROM maven:${MAVEN_VERSION}
