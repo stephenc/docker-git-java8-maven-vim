@@ -11,6 +11,8 @@
   <artifactId>seed</artifactId>
   <version>1-SNAPSHOT</version>
 
+  <name>Quarkus</name>
+
   <distributionManagement>
     <snapshotRepository>
       <id>dummy</id>
@@ -18,8 +20,8 @@
       <url>file:${project.build.directory}/repository</url>
     </snapshotRepository>
     <repository>
-      <id>cloudbees-internal-staging</id>
-      <name>CloudBees Internal Release Repository</name>
+      <id>dummy</id>
+      <name>Dummy</name>
       <url>file:${project.build.directory}/repository</url>
     </repository>
   </distributionManagement>
@@ -59,13 +61,6 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jsonb</artifactId>
       <version>${quarkus.version}</version>
-    </dependency>
-
-    <!--Flink-->
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-java</artifactId>
-      <version>1.8.0</version>
     </dependency>
   </dependencies>
 
@@ -133,26 +128,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-        <plugin>
-          <artifactId>maven-enforcer-plugin</artifactId>
-          <executions>
-            <execution>
-              <goals>
-                <goal>display-info</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <executions>
-            <execution>
-              <goals>
-                <goal>verify</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
@@ -162,22 +137,6 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus.version}</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptorRefs>
-              <descriptorRef>project</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

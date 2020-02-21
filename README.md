@@ -7,3 +7,11 @@ By default this image will run as a user called `user` with uid and gid of `1000
 This can be used where your have build tooling that requires a real user account and cannot run as root, for example PostgreSQL.
 
 Docker image available from [DockerHub](https://hub.docker.com/r/stephenc/docker-git-java8-maven-vim)
+
+# About pre-seeding
+
+This docker image has some pre-seeded dependencies included to make some builds faster.
+
+Each set of plugins / dependencies should be in their own project directory named `seed-...` as a sub-folder of the [`seed`](./seed/) directory.
+Separate projects are used so that multiple versions can be seeded.
+Projects start with a three digit grouping prefix so that we can control the order in which seeds are loaded, which doesn't affect the final image but makes it easier to determine whether seeds are effectively seeding the artifacts that they should.

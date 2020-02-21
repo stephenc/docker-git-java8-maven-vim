@@ -42,11 +42,11 @@ USER ${USER_NAME}
 WORKDIR /home/${USER_NAME}
 ENV MAVEN_CONFIG "/home/${USER_NAME}/.m2"
 
-COPY pom.xml "/home/${USER_NAME}"
+COPY --chown=${USER_NAME} seed/ "/home/${USER_NAME}/"
 RUN set -eux; \
   mkdir -p "/home/${USER_NAME}/.ssh"; \
   chmod -R 700 "/home/${USER_NAME}/.ssh"; \
   ssh-keyscan github.com >> ~/.ssh/known_hosts; \
-  mvn deploy site release:clean clean; \
-  rm -rvf pom.xml "/home/${USER_NAME}/.m2/repository/localdomain"; \
+  for file in seed-*/pom.xml ; do mvn -f "${file}" -s seed-settings.xml deploy site release:clean clean; done ;\
+  rm -rvf seed-* seed-settings.xml "/home/${USER_NAME}/.m2/repository/localdomain"; \
   find "/home/${USER_NAME}/.m2/repository/" -name _remote.repositories -exec rm -vf {} \;
