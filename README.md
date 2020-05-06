@@ -1,8 +1,10 @@
 # Docker Git Java8 Maven VIM
 
-This is a docker image based off the main maven image but with git and vim pre-installed and not running as root.
+This is a docker image based off the main maven image but with git and vim and some other common build tools pre-installed and not running as root.
 
-By default this image will run as a user called `user` with uid and gid of `1000` and a home directory of `/home/user`.
+By default this image will run as a user called `user` with uid and gid of `1000` and a home directory of `/home/user`. 
+The default working directory is `/home/user/src`
+If you want to bind mount a project to build, we recommend mounting it at `/home/user/src` 
 
 This can be used where your have build tooling that requires a real user account and cannot run as root, for example PostgreSQL.
 

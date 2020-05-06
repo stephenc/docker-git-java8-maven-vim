@@ -21,8 +21,12 @@ RUN  set -eux; \
   export DEBIAN_FRONTEND=noninteractive; \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list ;\
   apt-get update ;\
+  apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates ;\
+  curl -sL https://deb.nodesource.com/setup_12.x | bash - ;\
+  apt-get update ;\
   apt-get -y upgrade ;\
-  apt-get install -y vim wget curl git ;\
+  apt-get install -y vim wget curl git build-essential nodejs ;\
+  npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3 asciidoctor-kroki antora-lunr antora-site-generator-lunr; \
   rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
@@ -39,14 +43,17 @@ RUN set -eux; \
   chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.vim*
 
 USER ${USER_NAME}
-WORKDIR /home/${USER_NAME}
 ENV MAVEN_CONFIG "/home/${USER_NAME}/.m2"
 
 COPY --chown=${USER_NAME} seed/ "/home/${USER_NAME}/"
 RUN set -eux; \
-  mkdir -p "/home/${USER_NAME}/.ssh"; \
+  cd "/home/${USER_NAME}" ; \
+  mkdir -p "/home/${USER_NAME}/src" ; \
+  mkdir -p "/home/${USER_NAME}/.ssh" ; \
   chmod -R 700 "/home/${USER_NAME}/.ssh"; \
   ssh-keyscan github.com >> ~/.ssh/known_hosts; \
   for file in seed-*/pom.xml ; do mvn -f "${file}" -s seed-settings.xml deploy site release:clean clean; done ;\
   rm -rvf seed-* seed-settings.xml "/home/${USER_NAME}/.m2/repository/localdomain"; \
   find "/home/${USER_NAME}/.m2/repository/" -name _remote.repositories -exec rm -vf {} \;
+
+WORKDIR "/home/${USER_NAME}/src"
