@@ -27,7 +27,7 @@
   </distributionManagement>
 
   <properties>
-    <quarkus.version>1.8.1.Final</quarkus.version>
+    <quarkus.version>1.8.3.Final</quarkus.version>
   </properties>
 
   <!--Quarkus-->
